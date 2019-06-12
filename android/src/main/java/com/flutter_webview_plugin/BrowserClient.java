@@ -38,6 +38,7 @@ public class BrowserClient extends WebViewClient {
             invalidUrlPattern = null;
         }
     }
+    // test
 
     @Override
     public void onPageStarted(WebView view, String url, Bitmap favicon) {
