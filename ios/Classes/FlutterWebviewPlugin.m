@@ -276,6 +276,50 @@ static NSString *const CHANNEL_NAME = @"flutter_webview_plugin";
 }
 
 #pragma mark -- WkWebView Delegate
+
+
+- (void)webView     :(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message
+   initiatedByFrame :(WKFrameInfo *)frame
+   completionHandler:(void (^)(BOOL))completionHandler {
+  UIAlertController *alert;
+
+  alert = [UIAlertController alertControllerWithTitle: nil
+                                              message: message
+                                       preferredStyle: UIAlertControllerStyleAlert];
+
+  [alert addAction: [UIAlertAction actionWithTitle: NSLocalizedString(@"YES", "")
+                                             style: UIAlertActionStyleCancel
+                                           handler:^(UIAlertAction * _Nonnull action) {
+                                             completionHandler(YES);
+                                           }]];
+
+  [alert addAction: [UIAlertAction actionWithTitle: NSLocalizedString(@"NO", "")
+                                             style: UIAlertActionStyleCancel
+                                           handler:^(UIAlertAction * _Nonnull action) {
+                                             completionHandler(NO);
+                                           }]];
+
+  [self.viewController presentViewController: alert animated: YES completion: nil];
+}
+
+- (void)webView   :(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message
+  initiatedByFrame:(WKFrameInfo *)frame
+ completionHandler:(void (^)(void))completionHandler {
+  UIAlertController *alert;
+
+  alert = [UIAlertController alertControllerWithTitle: nil
+                                              message: message
+                                       preferredStyle: UIAlertControllerStyleAlert];
+
+  [alert addAction: [UIAlertAction actionWithTitle: NSLocalizedString(@"Close", "")
+                                             style: UIAlertActionStyleCancel
+                                           handler: nil]];
+
+  [self.viewController presentViewController: alert animated: YES completion: nil];
+  completionHandler();
+}
+
+
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
     decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
