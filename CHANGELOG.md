@@ -9,7 +9,7 @@
 
 # 0.3.1
 
-- Add support for geolocation Android
+- Add  support for geolocation Android
 - fix No269: Can't load target="_blank" links on iOS
 - fix: reloadUrl will not return Future
 - Fix height of keyboard
